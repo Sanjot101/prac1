@@ -1,0 +1,18 @@
+steps:
+# Install dependencies
+- name: python
+  entrypoint: pip
+  args: ["install", "-r", "requirements.txt", "--user"]
+# [START cloudbuild_python_tests_yaml]
+# Run unit tests
+#Containerize the app
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - hello_world
+  - --source=.
+  - --trigger-http
+  - --runtime=python37
+  - --allow-unauthenticated
+  
